@@ -1,6 +1,16 @@
-import './assets/main.css'
+import { createApp, markRaw } from "vue"; // Import Vue
+import App from "./App.vue"; // Main app component
+import { createPinia } from "pinia"; // Pinia state management
+import router from "./router"; // Import router
+import "./assets/main.css"; // Global styles
 
-import { createApp } from 'vue'
-import App from './App.vue'
+const app = createApp(App); // Create Vue app instance
+const pinia = createPinia();
 
-createApp(App).mount('#app')
+pinia.use(({ store }) => {
+  store.router = markRaw(router);
+});
+
+app.use(pinia); // Use Pinia for state management
+app.use(router); // Add router to the app
+app.mount("#app"); // Mount the app to the DOM
