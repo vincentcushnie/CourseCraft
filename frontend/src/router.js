@@ -3,6 +3,7 @@ import Home from "./components/HelloWorld.vue";
 import Register from "./components/Register.vue";
 import FullHeader from "./components/FullHeader.vue";
 import Login from "./components/Login.vue";
+import UserProfile from "./components/UserProfile.vue";
 import SmallHeader from "./components/SmallHeader.vue";
 import DefaultFooter from "./components/DefaultFooter.vue";
 import AboutContent from "./components/AboutContent.vue";
@@ -44,6 +45,16 @@ const routes = [
     name: "create",
     components: {
       default: Create,
+      header: FullHeader,
+      footer: DefaultFooter,
+    },
+    meta: { auth: true },
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    components: {
+      default: UserProfile,
       header: FullHeader,
       footer: DefaultFooter,
     },

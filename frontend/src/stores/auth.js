@@ -4,6 +4,7 @@ export const useAuthStore = defineStore("authStore", {
   state: () => {
     return {
       user: null,
+      user_info: null,
       errors: {},
     };
   },
@@ -23,7 +24,8 @@ export const useAuthStore = defineStore("authStore", {
         });
         const data = await res.json();
         if (res.ok) {
-          this.user = data;
+          this.user = data.user;
+          this.user_info = data.user_info;
         }
         console.log(data);
       }
@@ -46,6 +48,7 @@ export const useAuthStore = defineStore("authStore", {
         this.errors = {};
         localStorage.setItem("token", data.token);
         this.user = data.user;
+        this.user_info = data.user_info;
         this.router.push({ name: "home" });
       }
     },
@@ -64,6 +67,7 @@ export const useAuthStore = defineStore("authStore", {
       console.log(data);
       if (res.ok) {
         this.user = null;
+        this.user_info = null;
         this.errors = {};
         localStorage.removeItem("token");
         this.router.push({ name: "home" });
