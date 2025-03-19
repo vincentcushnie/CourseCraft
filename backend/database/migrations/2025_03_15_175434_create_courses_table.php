@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('course_name');
             $table->string('field');
             $table->integer('credits');
-            $table->integer('lab');
             $table->integer('lecture');
+            $table->integer('lab');
             $table->text('description');
             $table->double('difficulty');
         });

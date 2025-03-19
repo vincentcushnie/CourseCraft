@@ -4,6 +4,7 @@ import Register from "./components/Register.vue";
 import FullHeader from "./components/FullHeader.vue";
 import Login from "./components/Login.vue";
 import UserProfile from "./components/UserProfile.vue";
+import UserProfileUpdate from "./components/UserProfileUpdate.vue";
 import SmallHeader from "./components/SmallHeader.vue";
 import DefaultFooter from "./components/DefaultFooter.vue";
 import AboutContent from "./components/AboutContent.vue";
@@ -19,6 +20,7 @@ const routes = [
       header: FullHeader,
       footer: DefaultFooter,
     },
+    meta: { guest: true },
   },
   {
     path: "/register",
@@ -60,6 +62,16 @@ const routes = [
     },
     meta: { auth: true },
   },
+  {
+    path: "/profile/update",
+    name: "profileUpdate",
+    components: {
+      default: UserProfileUpdate,
+      header: FullHeader,
+      footer: DefaultFooter,
+    },
+    meta: { auth: true },
+  },
 ];
 
 const router = createRouter({
@@ -72,7 +84,7 @@ router.beforeEach(async (to, from) => {
   await authStore.getUser();
 
   if (authStore.user && to.meta.guest) {
-    return { name: "home" };
+    return { name: "profile" };
   }
 
   if (!authStore.user && to.meta.auth) {

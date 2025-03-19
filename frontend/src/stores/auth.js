@@ -5,6 +5,8 @@ export const useAuthStore = defineStore("authStore", {
     return {
       user: null,
       user_info: null,
+      major_one: null,
+      major_two: null,
       errors: {},
     };
   },
@@ -26,6 +28,8 @@ export const useAuthStore = defineStore("authStore", {
         if (res.ok) {
           this.user = data.user;
           this.user_info = data.user_info;
+          this.major_one = data.major_one;
+          this.major_two = data.major_two;
         }
         console.log(data);
       }
@@ -49,6 +53,8 @@ export const useAuthStore = defineStore("authStore", {
         localStorage.setItem("token", data.token);
         this.user = data.user;
         this.user_info = data.user_info;
+        this.major_one = data.major_one;
+        this.major_two = data.major_two;
         this.router.push({ name: "home" });
       }
     },
@@ -68,9 +74,34 @@ export const useAuthStore = defineStore("authStore", {
       if (res.ok) {
         this.user = null;
         this.user_info = null;
+        this.major_one = null;
+        this.major_two = null;
         this.errors = {};
         localStorage.removeItem("token");
         this.router.push({ name: "home" });
+      }
+    },
+    // Update user profile ----------------------------/
+    async update(formData) {
+      const res = await fetch("/api/user", {
+        method: "put",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.errors) {
+        this.errors = data.errors;
+      } else {
+        this.errors = {};
+        this.user_info = data.user_info;
+        this.major_one = data.major_one;
+        this.major_two = data.major_two;
+        this.router.push({ name: "profile" });
       }
     },
   },

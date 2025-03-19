@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('major_to_courses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('course_id')->nullable();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->unsignedBigInteger('major_id');
             $table->foreign('major_id')->references('id')->on('majors')->onDelete('cascade');
             $table->string('group');
             $table->string('time_code');
             $table->text('major_course_rules');
+            $table->integer('hours');
+            $table->string('course_text')->nullable();
         });
     }
 

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 
 use App\Models\UserInfo;
+use App\Models\Major;
+
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Gate;
+
 
 class UserInfoController extends Controller implements HasMiddleware
 {
@@ -22,6 +25,11 @@ class UserInfoController extends Controller implements HasMiddleware
     public static function getUserInfo($userId)
     {
         return UserInfo::where('user_id', $userId)->first(); // Fetch user-related info
+    }
+
+    private function getMajorById($majorId)
+    {
+        return Major::where('id', $majorId)->first(); 
     }
 
     public function update(Request $request)
@@ -57,7 +65,11 @@ class UserInfoController extends Controller implements HasMiddleware
         $userInfo->save();
     
         // Return the updated userInfo
-        return ['userInfo' => $userInfo];
+        return [
+            'userInfo' => $userInfo,
+            'majorOne' => $this->getMajorById($userInfo->major_one_id),
+            'majorTwo' => $this->getMajorById($userInfo->major_two_id),
+        ];
     }
     /**
      * Store a newly created resource in storage.
