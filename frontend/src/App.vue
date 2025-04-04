@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <div class="bg-[#E9E7E0] h-screen w-screen">
+  <div class="bg-[#E9E7E0] h-screen flex flex-col">
     <header class="w-full flex flex-col justify-center">
       <!-- <RouterLink
       :to="{ name: 'home' }"
@@ -13,8 +13,10 @@ import { RouterLink, RouterView } from "vue-router";
       <RouterView name="header" />
     </header>
 
-    <main>
-      <RouterView name="default" />
+    <main class="bg-[#E9E7E0]">
+      <div class="mb-10">
+        <RouterView name="default" />
+      </div>
     </main>
     <RouterView name="footer" />
   </div>

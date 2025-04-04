@@ -3,7 +3,7 @@
     <RouterLink
       :to="{ name: 'home' }"
       class="text-5xl text-[#E9E7E0] rounded-xl"
-      >Title</RouterLink
+      >CourseCraft</RouterLink
     >
   </h1>
 </template>

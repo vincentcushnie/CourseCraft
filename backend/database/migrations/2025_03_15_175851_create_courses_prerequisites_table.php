@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->unsignedBigInteger('course_id_two');
+            $table->unsignedBigInteger('course_id_two')->nullable();
             $table->foreign('course_id_two')->references('id')->on('courses')->onDelete('cascade');
             $table->string('grade_requirement');
             $table->string('group');

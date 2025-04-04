@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserInfoController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MajorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +27,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 Route::get('/majors', [MajorController::class, 'majors']);
 
+Route::get('/majors/{id}', [MajorController::class, 'majorCourses']);
+
 Route::get('/', function(){
     return 'API';
 });
 
+Route::get('/test', function () {
+    return response()->json(['status' => 'ok']);
+});
 
+Route::get('/course/prereqs/courses/{id}', [CourseController::class, 'coursePrerequisites']);

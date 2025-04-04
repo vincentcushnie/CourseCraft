@@ -2,24 +2,35 @@
 import { useAuthStore } from "@/stores/auth";
 import { onMounted } from "vue";
 const authStore = useAuthStore();
+
+const handleLogout = () => {
+  authStore.logout();
+  //any other store clearing
+};
 </script>
 
 <template>
   <h1 class="text-3xl bg-[#Eb6F46] text-white text-center py-16 w-full">
     <RouterLink :to="{ name: 'home' }" class="text-5xl text-[#E9E7E0]"
-      >Title</RouterLink
+      >CourseCraft</RouterLink
     >
   </h1>
   <nav class="py-2 px-4 w-full flex flex-row-reverse bg-[#E3C5B2]">
-    <div v-if="authStore.user" class="flex flex-row">
-      <div class="px-2 text-[#A72218]">
-        Welcome back {{ authStore.user.name }}
+    <div v-if="authStore.user" class="flex flex-row w-full">
+      <div class="px-2 text-[#A72218] grow">
+        User:
+        <span class="font-bold underline">{{ authStore.user_info.name }}</span>
       </div>
       <div class="mx-2 text-[#A72218] hover:underline">
-        <RouterLink :to="{ name: 'create' }">New Post</RouterLink>
+        <RouterLink :to="{ name: 'profile' }">My Profile</RouterLink>
+      </div>
+      <div
+        class="px-2 text-[#A72218] border-l-1 border-[#A72218] hover:underline"
+      >
+        <RouterLink :to="{ name: 'planner' }">Planning</RouterLink>
       </div>
       <form
-        @submit.prevent="authStore.logout"
+        @submit.prevent="handleLogout"
         class="px-2 text-[#A72218] border-l-1 border-[#A72218]"
       >
         <button class="hover:underline">Logout</button>
