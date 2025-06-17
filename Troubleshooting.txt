@@ -1,0 +1,4 @@
+If backend is running slowly
+docker exec -it backend php artisan config:clear
+docker exec -it backend php artisan cache:clear
+docker exec -it backend composer dump-autoload

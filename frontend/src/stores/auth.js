@@ -1,9 +1,13 @@
 import { defineStore } from "pinia";
+import { nextTick } from "vue";
 
 export const useAuthStore = defineStore("authStore", {
   state: () => {
     return {
       user: null,
+      user_info: null,
+      major_one: null,
+      major_two: null,
       errors: {},
     };
   },
@@ -23,9 +27,11 @@ export const useAuthStore = defineStore("authStore", {
         });
         const data = await res.json();
         if (res.ok) {
-          this.user = data;
+          this.user = data.user;
+          this.user_info = data.user_info;
+          this.major_one = data.major_one;
+          this.major_two = data.major_two;
         }
-        console.log(data);
       }
     },
     // Login or register -----------------------------/
@@ -46,6 +52,9 @@ export const useAuthStore = defineStore("authStore", {
         this.errors = {};
         localStorage.setItem("token", data.token);
         this.user = data.user;
+        this.user_info = data.user_info;
+        this.major_one = data.major_one;
+        this.major_two = data.major_two;
         this.router.push({ name: "home" });
       }
     },
@@ -61,12 +70,42 @@ export const useAuthStore = defineStore("authStore", {
       });
 
       const data = await res.json();
-      console.log(data);
       if (res.ok) {
         this.user = null;
+        this.user_info = null;
+        this.major_one = null;
+        this.major_two = null;
         this.errors = {};
         localStorage.removeItem("token");
         this.router.push({ name: "home" });
+      }
+    },
+    // Update user profile ----------------------------/
+    async update(formData) {
+      if (formData.major_one_id == formData.major_two_id && formData.major_one_id !== null) {
+        this.errors["major_two_id"] = ["Majors must be different"];
+        this.errors["major_one_id"] = ["Majors must be different"];
+      } else {
+        const res = await fetch("/api/user", {
+          method: "put",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formData),
+        });
+        const data = await res.json();
+
+        if (data.errors) {
+          this.errors = data.errors;
+        } else {
+          this.errors = {};
+          this.user_info = data.userInfo;
+          this.major_one = data.major_one;
+          this.major_two = data.major_two;
+          this.router.push({ name: "profile" });
+        }
       }
     },
   },
