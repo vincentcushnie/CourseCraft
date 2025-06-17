@@ -30,12 +30,23 @@ class MajorController extends Controller implements HasMiddleware
     }
 
     public static function majorCourses($id){
-        $major_to_course_information = DB::table('major_to_courses')
+    $results = DB::table('major_to_courses')
     ->leftJoin('courses', 'major_to_courses.course_id', '=', 'courses.id')
     ->where('major_to_courses.major_id', $id)
-    ->select('major_to_courses.*', 'courses.*') // Selects all columns from both tables
+    ->select('major_to_courses.*', 'courses.*')
     ->get();
-    return $major_to_course_information;
+
+    $separated = $results->map(function ($item) {
+        return [
+            'major_wrapper' => collect($item)->only([
+                'course_id', 'major_id', 'major_course_rules', 'group','time_code','hours','course_text' /* other major_to_courses columns */
+            ]),
+            'course_information' => collect($item)->only([
+                'id','course_code', 'course_name', 'field', 'credits','lecture','lab','description','difficulty' /* other courses columns */
+            ]),
+        ];
+    });
+    return $separated;
     }
 
 }

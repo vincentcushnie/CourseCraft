@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MajorController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,13 @@ Route::get('/test', function () {
 });
 
 Route::get('/course/prereqs/courses/{id}', [CourseController::class, 'coursePrerequisites']);
+
+Route::put('/semesters', [SemesterController::class, 'saveSemesters']);
+
+Route::get('/semesters', [SemesterController::class, 'getSemesters']);
+
+Route::get('/courses/menu/{id_code}/{major_id}', [CourseController::class, 'getMenu']);
+
+Route::get('/courses/departments', [CourseController::class, 'getDepartments']);
+
+Route::get('/courses/department/{department}', [CourseController::class, 'getDepartmentCourses']);

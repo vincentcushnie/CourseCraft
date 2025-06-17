@@ -15,7 +15,7 @@ class PrereqSeeder extends Seeder
     public function run(): void
     {
         //
-        $csvPath = storage_path('app/csvSeedData/prereqTable.csv');
+        $csvPath = storage_path('app/csvSeedData/coursesPrerequisitesTable.csv');
         $courseTable = DB::table('courses')->pluck('id', 'course_code')->toArray();
 
         // Load the CSV file using the League CSV package

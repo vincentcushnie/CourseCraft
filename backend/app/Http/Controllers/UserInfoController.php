@@ -36,7 +36,7 @@ class UserInfoController extends Controller implements HasMiddleware
     {
         $fields = $request->validate([
             'name' => 'required|string|max:255',
-            'major_one_id' => 'nullable|exists:majors,id',  
+            'major_one_id' => 'nullable|exists:majors,id|different:major_two_id',  
             'major_two_id' => 'nullable|exists:majors,id',  
         ]);
     

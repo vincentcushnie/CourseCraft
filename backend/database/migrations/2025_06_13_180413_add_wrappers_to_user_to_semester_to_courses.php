@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('semesters', function (Blueprint $table) {
-            $table->id('semester_id');  
-            $table->string('semester_name');       
-            $table->timestamps();
+        Schema::table('user_to_semester_to_courses', function (Blueprint $table) {
+            // Add a new column
+            $table->json('wrappers')->nullable();
         });
     }
 
@@ -23,6 +22,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('semesters');
+        Schema::table('user_to_semester_to_courses', function (Blueprint $table) {
+            //
+            $table->dropColumn(['wrappers']);
+
+        });
     }
 };

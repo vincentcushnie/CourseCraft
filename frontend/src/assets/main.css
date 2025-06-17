@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "inter";
+  src: url("./fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "inter";
+  src: url("./fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@theme {
+  --color-primary: oklch(0.2708 0.1111 29.23);
+  --color-background: oklch(1 0 232.076);
+  --color-tertiary: oklch(0.2942 0.06007 232.076);
+  --color-quaternary: oklch(0.6 0.0429 54.33);
+  --color-secondary: oklch(0.8669 0 0);
+  --color-error: oklch(0.7237 0.1712 25.55);
+  --color-truth: oklch(0.75 0.1702 143.83);
+
+  --font-inter: inter;
+
+  /* or override the default theme */
+  --breakpoint-sm: 30rem;
+}

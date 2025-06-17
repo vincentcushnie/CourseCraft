@@ -15,7 +15,7 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
         //
-        $csvPath = storage_path('app/csvSeedData/courseTable.csv');
+        $csvPath = storage_path('app/csvSeedData/coursesTable.csv');
 
         // Load the CSV file using the League CSV package
         $csv = Reader::createFromPath($csvPath, 'r');
